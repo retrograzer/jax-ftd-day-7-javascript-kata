@@ -4,6 +4,9 @@
 
 'use strict'
 
+const growthModels = []
+averageGrowthModel(growthModels)
+
 function createGrowthModel (lengthToWingspan, leavesEatenToWeight) {
   return {
     lengthToWingspan,
@@ -24,16 +27,22 @@ function createGrowthModel (lengthToWingspan, leavesEatenToWeight) {
 
 function reduce (arr, func, init) {
   let result = []
-   for (let elem of arr) {
-     result = func(result, elem)
-   }
+  for (let elem of arr) {
+    result = [arr[elem], arr[elem]]
+  }
+
   return result
 }
 
 function averageGrowthModel (growthModels) {
-  let cur = createGrowthModel(20, 15)
-  growthModels = [cur]
-  growthModels.reduce((acc, next) => { acc + next }, 0)
+  let result = []
+
+  for (let elem of growthModels) {
+    if (growthModels[elem].lengthToWingspan === 0 || growthModels[elem].leavesEatenToWeight) {
+       return undefined
+    }
+    reduce(growthModels, (acc, next) => { (acc + next) / growthModels.length}, 0)
+  }
 }
 
 module.exports = {
