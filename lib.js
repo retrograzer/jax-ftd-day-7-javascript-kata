@@ -19,8 +19,19 @@ function createGrowthModel (lengthToWingspan, leavesEatenToWeight) {
  *
  * @return a GrowthModel object
  */
+
+function reduce (arr, func, init) {
+  let result = []
+   for (let elem of arr) {
+     result = func(result, elem)
+   }
+  return result
+}
+
 function averageGrowthModel (growthModels) {
-  // TODO: implement using Array.prototype.reduce()
+  let cur = createGrowthModel(20, 15)
+  growthModels = [cur]
+  growthModels.reduce((acc, next) => { acc + next }, 0)
 }
 
 module.exports = {
